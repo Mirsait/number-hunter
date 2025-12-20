@@ -15,6 +15,8 @@ func (m Model) View() string {
 		return viewGame(m)
 	case Win:
 		return viewWin(m)
+	case Defeat:
+		return viewDefeat()
 	case Exit:
 		return viewExit()
 	}
@@ -24,7 +26,8 @@ func (m Model) View() string {
 func viewStart() string {
 	wP := welcomeStyle.Render("Welcome to NumberHunter!\n\n")
 	var sb strings.Builder
-	sb.WriteString("You’ve entered the hunt for the secret number.\n")
+	sb.WriteString("You’ve entered the hunt for the secret number from 1 to 100\n")
+	sb.WriteString("You have only 7 arrows\n\n")
 	sb.WriteString("Test your intuition and logic — \n")
 	sb.WriteString("can you uncover the mystery faster than anyone else?\n\n")
 	aP := textStyle.Render(sb.String())
@@ -36,11 +39,15 @@ func viewStart() string {
 func viewGame(m Model) string {
 	var sb strings.Builder
 	if m.hot > 0 {
-		hP := highStyle.Render("Your strike soared too far... Lower your aim!\n")
-		sb.WriteString(hP)
+		hpText := fmt.Sprintf("%s%d%s",
+			"Your strike soared too far... Lower your aim!\nThe shadows count ",
+			len(m.guess_numbers),
+			" arrows loosed...\n")
+		sb.WriteString(highStyle.Render(hpText))
 	} else if m.hot < 0 {
-		lP := lowStyle.Render("Your arrow fell short... Aim higher, Hunter!\n")
-		sb.WriteString(lP)
+		lowText := fmt.Sprintf("%s%d%s",
+			"Your arrow fell short... Aim higher, Hunter!\nAlready ", len(m.guess_numbers), " arrows fly into the dark...\n")
+		sb.WriteString(lowStyle.Render(lowText))
 	}
 	textP := textStyle.Render("Hunter, the shadows whisper...\nWhat number will you strike at?")
 	inpP := inputStyle.Render(fmt.Sprintf("\n\n%s\n\n", m.textinput.View()))
@@ -69,4 +76,15 @@ func viewExit() string {
 	exitP := keyHintStype.Render("(enter to quit)")
 	abc := lg.JoinVertical(lg.Center, str, exitP)
 	return exitStyle.Render(abc)
+}
+
+func viewDefeat() string {
+	str := fmt.Sprintf("%s%s%s",
+		"Your arrows scatter into the void...\n",
+		"The secret number escapes your grasp, Hunter.\n",
+		"The hunt slips away...\n\n")
+	text := defeatTextStyle.Render(str)
+	exitP := keyHintStype.Render("(enter to restart, esc to quit)")
+	abc := lg.JoinVertical(lg.Center, text, exitP)
+	return defeatStyle.Render(abc)
 }

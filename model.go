@@ -11,6 +11,7 @@ const (
 	Start GameState = iota
 	Game
 	Win
+	Defeat
 	Exit
 )
 
@@ -22,14 +23,15 @@ type Model struct {
 	textinput     textinput.Model
 	err           error
 	hot           int
+	min_guesses   int
 }
 
 func initialModel() Model {
 	ti := textinput.New()
 	ti.Placeholder = "0"
 	ti.Focus()
-	ti.CharLimit = 2
-	ti.Width = 20
+	ti.CharLimit = 3
+	ti.Width = 5
 	return Model{
 		textinput:     ti,
 		err:           nil,

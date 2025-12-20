@@ -24,6 +24,8 @@ const lowColor = lg.Color("#3943FF")
 const highColor = lg.Color("#ff4339")
 const motoColor = lg.Color("#B94FFF")
 const exitColor = lg.Color("#b50303")
+const defeatBgColor = lg.Color("#000e17")
+const defeatFgColor = lg.Color("#ff4339")
 
 // start view
 var startStyle = lg.NewStyle().
@@ -106,3 +108,19 @@ var exitStyle = lg.NewStyle().
 	PaddingRight(4).
 	PaddingBottom(10).
 	Align(lg.Center)
+
+var defeatStyle = lg.NewStyle().
+	Width(w).Height(h).
+	Bold(true).
+	Background(defeatBgColor).
+	PaddingTop(10).
+	PaddingLeft(4).
+	PaddingRight(4).
+	PaddingBottom(10).
+	Align(lg.Center)
+
+var defeatTextStyle = lg.NewStyle().
+	Width(h).
+	Align(lg.Center).
+	Foreground(defeatFgColor).
+	Background(defeatBgColor)
