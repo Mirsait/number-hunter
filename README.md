@@ -4,6 +4,8 @@
 *Guess the Number* game, built with **Golang** and powered by the **Bubble Tea**
 and **Lipgloss** libraries for a stylish terminal UI.
 
+[roadmap.sh](https://roadmap.sh/projects/number-guessing-game)
+
 ## Gameplay
 
 - The computer secretly chooses a random number between **1 and 100**.  
